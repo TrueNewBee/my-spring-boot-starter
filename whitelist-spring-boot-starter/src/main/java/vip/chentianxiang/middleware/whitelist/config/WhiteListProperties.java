@@ -1,5 +1,6 @@
 package vip.chentianxiang.middleware.whitelist.config;
 
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

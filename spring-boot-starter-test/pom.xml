@@ -8,6 +8,7 @@
     <artifactId>spring-boot-starter-test</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -60,8 +61,14 @@
         </dependency>
         <!-- 服务治理，白名单 -->
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>whitelist</artifactId>
+            <groupId>vip.chentianxiang</groupId>
+            <artifactId>whitelist-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- 服务治理, 超时熔断-->
+        <dependency>
+            <groupId>vip.chentianxiang</groupId>
+            <artifactId>hystrix-spring-boot-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
