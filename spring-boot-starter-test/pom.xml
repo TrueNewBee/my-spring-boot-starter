@@ -71,6 +71,12 @@
             <artifactId>hystrix-spring-boot-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+            <!--服务治理,调用限用-->
+        <dependency>
+            <groupId>vip.chentianxiang</groupId>
+            <artifactId>ratelimiter-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

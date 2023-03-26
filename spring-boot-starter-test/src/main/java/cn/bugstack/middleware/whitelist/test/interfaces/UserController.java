@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vip.chentianxiang.middleware.hystrix.annotation.DoHystrix;
+import vip.chentianxiang.middleware.ratelimiter.annotation.DoRateLimiter;
 import vip.chentianxiang.middleware.whitelist.annotation.DoWhiteList;
 
 @RestController
@@ -38,6 +39,17 @@ public class UserController {
         return new UserInfo("虫虫:" + userId, 19, "天津市东丽区万科赏溪苑14-0000");
     }
 
+
+    /**
+     * 调用限流测试:
+     * 测试：http://localhost:8081/api/queryUserInfo03?userId=aaa
+     */
+    @DoRateLimiter(permitsPerSecond = 1, returnJson = "{\"code\":\"1111\",\"info\":\"调用方法超过最大次数，限流返回！\"}")
+    @RequestMapping(path = "/api/queryUserInfo03", method = RequestMethod.GET)
+    public UserInfo queryUserInfo(@RequestParam String userId) throws InterruptedException {
+        logger.info("查询用户信息，userId：{}", userId);
+        return new UserInfo("虫虫:" + userId, 19, "天津市东丽区万科赏溪苑14-0000");
+    }
 
 }
 
