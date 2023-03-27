@@ -1,5 +1,6 @@
 package cn.bugstack.middleware.whitelist.test.interfaces;
 
+import cn.bugstack.middleware.methodext.annotation.DoMethodExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,9 +47,30 @@ public class UserController {
      */
     @DoRateLimiter(permitsPerSecond = 1, returnJson = "{\"code\":\"1111\",\"info\":\"调用方法超过最大次数，限流返回！\"}")
     @RequestMapping(path = "/api/queryUserInfo03", method = RequestMethod.GET)
-    public UserInfo queryUserInfo(@RequestParam String userId) throws InterruptedException {
+    public UserInfo queryUserInfo03(@RequestParam String userId) throws InterruptedException {
         logger.info("查询用户信息，userId：{}", userId);
         return new UserInfo("虫虫:" + userId, 19, "天津市东丽区万科赏溪苑14-0000");
+    }
+    /**
+     * 放行：http://localhost:8081/api/queryUserInfo04?userId=aaa
+     * 拦截：http://localhost:8081/api/queryUserInfo04?userId=bbb
+     */
+    @DoMethodExt(method = "blacklist", returnJson = "{\"code\":\"1111\",\"info\":\"自定义校验方法拦截，不允许访问！\"}")
+    @RequestMapping(path = "/api/queryUserInfo04", method = RequestMethod.GET)
+    public UserInfo queryUserInfo04(@RequestParam String userId) {
+        logger.info("查询用户信息，userId：{}", userId);
+        return new UserInfo("虫虫:" + userId, 19, "天津市东丽区万科赏溪苑14-0000");
+    }
+
+    /**
+     * 自定义黑名单，拦截方法
+     */
+    public boolean blacklist(@RequestParam String userId) {
+        if ("bbb".equals(userId) || "222".equals(userId)) {
+            logger.info("拦截自定义黑名单用户 userId：{}", userId);
+            return false;
+        }
+        return true;
     }
 
 }
