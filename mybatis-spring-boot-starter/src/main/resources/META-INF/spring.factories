@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=vip.chentianxiang.middleware.mybatis.boot.autoconfigure.MybatisAutoConfiguration
